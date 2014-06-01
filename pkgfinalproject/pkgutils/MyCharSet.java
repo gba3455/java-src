@@ -12,7 +12,7 @@ public class MyCharSet extends Charset{
 		// TODO Auto-generated constructor stub
 	}
 	public static Set getCharset(){
-		String[] strArr = {"US-ASCII","EUC-JP","GB18030","GB2312","GBK","ISO-2022-JP","Shift_JIS","UTF-8"};
+		String[] strArr = {"US-ASCII","EUC-JP","GB18030","GB2312","EUC-KR","ISO-2022-JP","Shift_JIS","UTF-8"};
 		MyCharSet mcs = new MyCharSet("str",strArr);
 		return mcs.aliases();
 	}

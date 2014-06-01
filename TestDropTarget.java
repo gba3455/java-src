@@ -6,9 +6,14 @@ import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTargetDropEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Set;
@@ -98,10 +103,19 @@ public class TestDropTarget
                 	for(String cs : charset){
 //                	for(Entry<String, Charset> map : cscs.entrySet()){
                 		JInternalFrame iframe = new JInternalFrame(cs, true, true, true, true);
-                    	JTextArea jt = new JTextArea(new String(getText((File)f).getBytes(),Charset.forName(cs)));
+//                    	JTextArea jt = new JTextArea(new String(getText((File)f).getBytes(),Charset.forName(cs)));
+                    	JTextArea jt = new JTextArea(getText((File)f,cs));
+                    	jt.setLineWrap(true);
                     	Box box = Box.createVerticalBox();
                     	box.add(new JScrollPane(jt));
                     	JButton jb = new JButton("使う");
+                    	jb.addActionListener(new ActionListener() {
+							
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								System.out.println("fda");
+							}
+						});
                     	box.add(jb);
                     	iframe.add(box);
                     	desktop.add(iframe);
@@ -117,13 +131,19 @@ public class TestDropTarget
                 	}
                 }
                 
-                private String getText(File f) throws IOException{
-                	FileReader fr = new FileReader(f);
-                	int readNum = 0;
-                	char[] cbuf = new char[1024];
+                private String getText(File f,String cs) throws IOException{
+//                	FileReader fr = new FileReader(f);
+//                	int readNum = 0;
+//                	char[] cbuf = new char[1024];
                 	StringBuilder sb = new StringBuilder();
-                	while((readNum = fr.read()) != -1){
-                		sb.append((char)readNum);
+//                	while((readNum = fr.read()) != -1){
+//                		sb.append((char)readNum);
+//                	}
+//                	return sb.toString();
+                	String line = null;
+                	BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f), cs));
+                	while((line = br.readLine()) != null){
+                		sb.append(line);
                 	}
                 	return sb.toString();
                 }
