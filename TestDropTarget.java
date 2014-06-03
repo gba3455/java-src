@@ -11,13 +11,13 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
 import javax.swing.Box;
@@ -47,9 +47,14 @@ public class TestDropTarget
         //定义内部窗口为虚拟桌面的1/2大小
         private int width = DESKTOP_WIDTH / 2;
         private int height = DESKTOP_HEIGHT / 2;
-
+        private Map<String,JButton> jbMap = new HashMap<String, JButton>();
+    	private Set<String> charset = MyCharSet.getCharset();
         public void init()
         {
+        		for(String jbname : charset){
+        			JButton jb = new JButton("使う");
+        			jbMap.put(jbname, jb);
+        		}
                 desktop.setPreferredSize(new Dimension(DESKTOP_WIDTH, DESKTOP_HEIGHT));
                 //将当前窗口创建成拖放源
                 new DropTarget(jf, DnDConstants.ACTION_COPY ,  new ImageDropTargetListener());
@@ -98,8 +103,8 @@ public class TestDropTarget
                 }
                 
                 private void showText(File f,DropTargetDropEvent event) throws IOException{
-                	Set<String> charset = MyCharSet.getCharset();
 //                	Map<String,Charset> cscs = Charset.availableCharsets();
+                	Map<String,JButton> jbMap = new HashMap<String, JButton>();
                 	for(String cs : charset){
 //                	for(Entry<String, Charset> map : cscs.entrySet()){
                 		JInternalFrame iframe = new JInternalFrame(cs, true, true, true, true);
@@ -108,15 +113,9 @@ public class TestDropTarget
                     	jt.setLineWrap(true);
                     	Box box = Box.createVerticalBox();
                     	box.add(new JScrollPane(jt));
-                    	JButton jb = new JButton("使う");
-                    	jb.addActionListener(new ActionListener() {
-							
-							@Override
-							public void actionPerformed(ActionEvent e) {
-								System.out.println("fda");
-							}
-						});
-                    	box.add(jb);
+                    	JButton jbtemp = jbMap.get(cs);
+                    	
+                    	
                     	iframe.add(box);
                     	desktop.add(iframe);
                     	//设置内部窗口的原始位置（内部窗口默认大小是0X0，放在0,0位置）
