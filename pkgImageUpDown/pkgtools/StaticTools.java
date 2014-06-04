@@ -1,5 +1,6 @@
 package pkgImageUpDown.pkgtools;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +34,11 @@ public class StaticTools {
 	public static Map<Integer,String> imageMap = new HashMap<Integer, String>();
 	
 	public static String FirstCap = "";
+
 	
+	public static Color lineColor = Color.black;
+	
+	public static String lineType = "Rect";
 
 	public static List<String> localfiles;
 

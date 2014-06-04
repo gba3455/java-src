@@ -12,7 +12,7 @@ import pkgImageUpDown.pkgtools.Cam;
 import pkgImageUpDown.pkgtools.StaticTools;
 
 public class ButtonListener implements ActionListener{
-	private MainFrame mainFrame;
+	private MainFrame mainFrame = null;
 	public ButtonListener(MainFrame mainFrame) {
 		this.mainFrame = mainFrame;
 	}
