@@ -36,7 +36,7 @@ public class StaticTools {
 	public static String FirstCap = "";
 
 	
-	public static Color lineColor = Color.black;
+	public static Color lineColor = Color.red;
 	
 	public static String lineType = "Rect";
 

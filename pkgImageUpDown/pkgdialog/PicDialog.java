@@ -13,6 +13,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
 import javax.swing.Box;
@@ -41,6 +46,7 @@ public class PicDialog extends JDialog {
 	private ImageIcon subImage;
 	private Point start;
 	private Point end;
+	
 	Cam cam;
 	Graphics g;
 	MainFrame mainFrame = null;
@@ -142,12 +148,6 @@ public class PicDialog extends JDialog {
 		this.boxEdit = boxEdit;
 	}
 
-//	PicDlgMouseMotionListener pdmml = new PicDlgMouseMotionListener(mainFrame,
-//			this, posDialog);
-//	PicDlgMouseListener pdml = new PicDlgMouseListener(mainFrame, this,
-//			posDialog);
-
-
 	public PicDialog(final MainFrame mainFrame) {
 		this.mainFrame = mainFrame;
 		init();
@@ -156,12 +156,13 @@ public class PicDialog extends JDialog {
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		if (StaticTools.isFirstPoint) {
-			if (StaticTools.downloadFlag == false) {
-//				this.pack();
+//			if (StaticTools.downloadFlag == false) {
 				 this.addMouseMotionListener(new PicDlgMouseMotionListener(this.mainFrame,
 							this, posDialog));
 				 this.addMouseListener(new PicDlgMouseListener(this.mainFrame, this,
 							posDialog));
+//			} 
+//			else {
 //				this.addMouseMotionListener(new MouseMotionListener() {
 //					@Override
 //					public void mouseMoved(MouseEvent e) {
@@ -203,7 +204,8 @@ public class PicDialog extends JDialog {
 //						end.x = 0;
 //						end.y = 0;
 //						repaint();
-//						new PicDialog(mainFrame);
+//						StaticTools.isFirstPoint = true;
+////						new PicDialog(mainFrame);
 //					}
 //
 //					@Override
@@ -223,10 +225,7 @@ public class PicDialog extends JDialog {
 //					public void mouseClicked(MouseEvent e) {
 //					}
 //				});
-			} 
-			else {
-				this.pack();
-			}
+//			}
 		} else {
 			this.setTitle("これでよろしいですか？");
 			BufferedImage bufI = null;
@@ -298,22 +297,28 @@ public class PicDialog extends JDialog {
 //				}
 //			});
 //		}
+		this.pack();
 		this.setVisible(true);
 		// posDialog = new PosDialog(mainFrame);
 	}
 
 	public void paint(Graphics g) {
 		super.paint(g);
-		// int x = Math.min(StaticTools.x1, StaticTools.x2);
-		// int y = Math.min(StaticTools.y1, StaticTools.y2);
-		// int width = Math.abs(StaticTools.x2 - StaticTools.x1) + 1;
-		// int height = Math.abs(StaticTools.y2 - StaticTools.y1) + 1;
+//		if (StaticTools.downloadFlag == false) {
 		int x = Math.min(start.x, end.x);
 		int y = Math.min(start.y, end.y);
 		int width = Math.abs(end.x - start.x) + 1;
 		int height = Math.abs(end.y - start.y) + 1;
-		g.setColor(Color.BLUE);
+		g.setColor(StaticTools.lineColor);
 		g.drawRect(x - 1, y - 1, width + 1, height + 1);
+//		}else{
+//			g.setColor(StaticTools.lineColor);
+//			switch(StaticTools.lineType){
+//			case "line":
+//					g.drawLine(start.x, start.y, end.x, end.y);
+//				break;
+//			}
+//		}
 		// g.drawRect(start.x, start.y, Math.abs(start.x - end.x),
 		// Math.abs(start.y - end.y));
 	}
@@ -325,7 +330,6 @@ public class PicDialog extends JDialog {
 		mainPanel = new JPanel();
 		PicDialogListener pl = new PicDialogListener(mainFrame, this, posDialog);
 		if (StaticTools.isFirstPoint) {
-
 			mainPanel.add(jImageLabel);
 			this.add(mainPanel);
 		}else{
@@ -342,15 +346,15 @@ public class PicDialog extends JDialog {
 			mainPanel.add(box, BorderLayout.SOUTH);
 			this.add(mainPanel);
 		}
-		if (StaticTools.downloadFlag) {
-			buttonEdit = new JButton("コメントしますか？");
-			buttonEdit.addActionListener(pl);
-			boxEdit = Box.createHorizontalBox();
-			boxEdit.add(jImageLabel);
-			boxEdit.add(buttonEdit);
-			mainPanel.add(boxEdit);
-			this.add(mainPanel);
-		}
+//		if (StaticTools.downloadFlag) {
+//			buttonEdit = new JButton("コメントしますか？");
+//			buttonEdit.addActionListener(pl);
+//			boxEdit = Box.createHorizontalBox();
+//			boxEdit.add(jImageLabel);
+//			boxEdit.add(buttonEdit);
+//			mainPanel.add(boxEdit);
+//			this.add(mainPanel);
+//		}
 
 	}
 
