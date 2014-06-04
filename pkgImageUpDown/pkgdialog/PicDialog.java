@@ -52,20 +52,6 @@ public class PicDialog extends JDialog{
 		this.setLocationRelativeTo(null);
 		if(StaticTools.isFirstPoint){
 			this.pack();
-		}else{
-			this.setTitle("これでよろしいですか？");
-			BufferedImage bufI = null;
-			try {
-				bufI = ImageIO.read(new FileInputStream(new File(StaticTools.imageMap.get(StaticTools.serialNum))));
-			} catch (FileNotFoundException e1) {
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}	
-			System.out.println(bufI.getWidth() + "宽高" + bufI.getHeight());
-			this.setSize(new Dimension(bufI.getWidth(), bufI.getHeight() + 40));
-		}
-		if(StaticTools.isFirstPoint){
 			this.addMouseMotionListener(new MouseMotionListener() {
 				@Override
 				public void mouseMoved(MouseEvent e) {
@@ -121,7 +107,22 @@ public class PicDialog extends JDialog{
 				public void mouseClicked(MouseEvent e) {
 				}
 			});
+		}else{
+			this.setTitle("これでよろしいですか？");
+			BufferedImage bufI = null;
+			try {
+				bufI = ImageIO.read(new FileInputStream(new File(StaticTools.imageMap.get(StaticTools.serialNum))));
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}	
+			System.out.println(bufI.getWidth() + "宽高" + bufI.getHeight());
+			this.setSize(new Dimension(bufI.getWidth(), bufI.getHeight() + 40));
 		}
+//		if(StaticTools.isFirstPoint){
+//			
+//		}
 		this.setVisible(true);
 //		posDialog = new PosDialog(mainFrame);
 	}
