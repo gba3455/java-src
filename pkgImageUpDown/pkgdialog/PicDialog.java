@@ -58,10 +58,8 @@ public class PicDialog extends JDialog{
 			try {
 				bufI = ImageIO.read(new FileInputStream(new File(StaticTools.imageMap.get(StaticTools.serialNum))));
 			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}	
 			System.out.println(bufI.getWidth() + "宽高" + bufI.getHeight());
@@ -69,12 +67,10 @@ public class PicDialog extends JDialog{
 		}
 		if(StaticTools.isFirstPoint){
 			this.addMouseMotionListener(new MouseMotionListener() {
-				
 				@Override
 				public void mouseMoved(MouseEvent e) {
 //					repaint();
 				}
-				
 				@Override
 				public void mouseDragged(MouseEvent e) {
 					if(StaticTools.isFirstPoint){
@@ -100,7 +96,6 @@ public class PicDialog extends JDialog{
 				}
 			});
 			this.addMouseListener(new MouseListener() {
-				
 				@Override
 				public void mouseReleased(MouseEvent e) {
 //					cam.snapShot();
@@ -112,33 +107,21 @@ public class PicDialog extends JDialog{
 		        	repaint();
 					new PicDialog(mainFrame);
 				}
-				
 				@Override
 				public void mousePressed(MouseEvent e) {
-					// TODO Auto-generated method stub
 //					repaint();
 				}
-				
 				@Override
 				public void mouseExited(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
 				}
-				
 				@Override
 				public void mouseEntered(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
 				}
-				
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
 				}
 			});
 		}
-		
 		this.setVisible(true);
 //		posDialog = new PosDialog(mainFrame);
 	}
